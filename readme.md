@@ -1,6 +1,6 @@
 # Usage example: Show Saleae Logic GUI on current $DISPLAY
 ```
-nix-shell --pure shell_saleaelogic2.nix --run "saleae-logic-2"
+nix-shell --pure shell_saleaelogic2.nix --run "./logic.sh"
 ```
 This is fine for personal development; less so for regression.
 Regression machines should be minimalistic, so there is no fancy Desktop Environment.
@@ -11,7 +11,7 @@ Wouldn't it be nice if these issues were solved in a race-free, clean, debuggabl
 
 # Usage example: Show on "Headless" VNC server
 ```
-nix-shell --pure shell_saleaelogic2.nix --run "expose-as-vnc-server jwm-run saleae-logic-2"
+nix-shell --pure shell_saleaelogic2.nix --run "expose-as-vnc-server jwm-run ./logic.sh"
 ```
 This is good for regression:
  * $DISPLAY is automatically found

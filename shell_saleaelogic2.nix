@@ -31,13 +31,7 @@ in pkgs.mkShell {
   extracted_sl2 = (builtins.toString wdh_sl2) + "/wdh_extracted_appimage";
 
   shellHook = ''
+    # Prefix by the extracted Logic binary
     export PATH="$extracted_sl2:$PATH"
-
-    export ENABLE_AUTOMATION=1
-
-    mkdir -p $HOME/.config/Logic
-    echo "NOTE: Overwriting your config.json file!"
-    cp $HOME/.config/Logic/config.json $HOME/.config/Logic/config.json.backup
-    cp config.json $HOME/.config/Logic/config.json
   '';
 }
