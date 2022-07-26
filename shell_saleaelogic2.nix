@@ -12,13 +12,17 @@ with (import (builtins.fetchTarball {
 let
   wdh_sl2 = import ./pkg_saleaelogic2.nix;
   wdh_exposevnc = import ./pkg_exposevnc.nix;
+  wdh_jwmrun = import ./pkg_jwmrun.nix;
 in pkgs.mkShell {
   buildInputs = [
     wdh_sl2
     wdh_exposevnc
+    wdh_jwmrun
 
     python39Packages.pip
     libstdcxx5
+
+    jwm
     xvfb-run
     x11vnc
     xorg.xorgserver
