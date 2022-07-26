@@ -37,5 +37,8 @@
 	"shouldRenameTabToSavedCapture": false,
 	"version": "2.3.56",
 	"isDisabledAutoUpdates": true,
-	"automationServerEnabled": true
+	"automationServerEnabled": true,
+	"onboardings": {
+		"main": true
+	}
 }
