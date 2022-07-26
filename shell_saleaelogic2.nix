@@ -12,13 +12,16 @@ let
   wdh_jwmrun = import ./pkg_jwmrun.nix;
 in pkgs.mkShell {
   buildInputs = [
+    # Oticon special interest packages
     wdh_sl2
     wdh_exposevnc
     wdh_jwmrun
 
+    # For Logic's python gRPC Automation
     python39Packages.pip
     libstdcxx5
 
+    # "Headless"/VNC dependencies
     jwm
     xvfb-run
     x11vnc
@@ -29,7 +32,12 @@ in pkgs.mkShell {
 
   shellHook = ''
     export PATH="$extracted_sl2:$PATH"
-    #echo saleae-logic-2 is AppImage-extracted under bwrap
-    #echo Logic is AppImage-extracted without bwrap
+
+    export ENABLE_AUTOMATION=1
+
+    mkdir -p $HOME/.config/Logic
+    echo "NOTE: Overwriting your config.json file!"
+    cp $HOME/.config/Logic/config.json $HOME/.config/Logic/config.json.backup
+    cp config.json $HOME/.config/Logic/config.json
   '';
 }

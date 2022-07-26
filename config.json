@@ -1,19 +1,12 @@
 {
 	"reportCrashes": false,
 	"appIdentification": {
-		"machineId": "4193c18d-4549-45ba-9d64-e967ba1c79c6"
+		"machineId": "399601d8-e669-46d0-8786-738149d49cab"
 	},
+	"analyzersPreferences": {},
 	"deviceNames": {},
 	"renderSchemaVersion": 11,
 	"reportAnalytics": false,
-	"automaticallyStartCaptureMSO": true,
-	"version": "2.3.56",
-	"shouldRenameTabToSavedCapture": false,
-	"automationServerEnabled": true,
-	"onboardings": {
-		"main": true
-	},
-	"isDisabledAutoUpdates": true,
 	"installedExtensions": [
 		{
 			"path": "/home/eisbaw/.config/Logic/Marketplace/1/extension.json",
@@ -39,5 +32,10 @@
 			"gitSha": "5f6057be2761978b3ac722a5dbf04d1eeed9181f",
 			"marketplaceUrl": "https://github.com/saleae/voltage-statistics-measurement"
 		}
-	]
+	],
+	"automaticallyStartCaptureMSO": true,
+	"shouldRenameTabToSavedCapture": false,
+	"version": "2.3.56",
+	"isDisabledAutoUpdates": true,
+	"automationServerEnabled": true
 }
