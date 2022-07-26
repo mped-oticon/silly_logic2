@@ -1,0 +1,43 @@
+{
+	"reportCrashes": false,
+	"appIdentification": {
+		"machineId": "4193c18d-4549-45ba-9d64-e967ba1c79c6"
+	},
+	"deviceNames": {},
+	"renderSchemaVersion": 11,
+	"reportAnalytics": false,
+	"automaticallyStartCaptureMSO": true,
+	"version": "2.3.56",
+	"shouldRenameTabToSavedCapture": false,
+	"automationServerEnabled": true,
+	"onboardings": {
+		"main": true
+	},
+	"isDisabledAutoUpdates": true,
+	"installedExtensions": [
+		{
+			"path": "/home/eisbaw/.config/Logic/Marketplace/1/extension.json",
+			"id": 1,
+			"isDisabled": false,
+			"isFromWeb": true,
+			"gitSha": "f5ac6d6e6c3edf66d0884f57a372cfd5c3a80e23",
+			"marketplaceUrl": "https://github.com/saleae/clock-statistics-measurement"
+		},
+		{
+			"path": "/home/eisbaw/.config/Logic/Marketplace/1000/extension.json",
+			"id": 1000,
+			"isDisabled": false,
+			"isFromWeb": true,
+			"gitSha": "ede86934b8e0ce14d38778946228116346960ad4",
+			"marketplaceUrl": "https://github.com/saleae/saleae-measurements-v2"
+		},
+		{
+			"path": "/home/eisbaw/.config/Logic/Marketplace/2/extension.json",
+			"id": 2,
+			"isDisabled": false,
+			"isFromWeb": true,
+			"gitSha": "5f6057be2761978b3ac722a5dbf04d1eeed9181f",
+			"marketplaceUrl": "https://github.com/saleae/voltage-statistics-measurement"
+		}
+	]
+}
