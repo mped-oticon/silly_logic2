@@ -1,6 +1,3 @@
-# Usage:
-#   $ nix-shell shell_saleaelogic2.nix --pure --run Logic
-
 # Lock all nix-package versions to that which is released atomically together
 with (import (builtins.fetchTarball {
   # Release '22.05' is a tag which points to ce6aa13369b667ac2542593170993504932eb836
@@ -32,7 +29,7 @@ in pkgs.mkShell {
 
   shellHook = ''
     export PATH="$extracted_sl2:$PATH"
-    echo saleae-logic-2 is AppImage-extracted under bwrap
-    echo Logic is AppImage-extracted without bwrap
+    #echo saleae-logic-2 is AppImage-extracted under bwrap
+    #echo Logic is AppImage-extracted without bwrap
   '';
 }
