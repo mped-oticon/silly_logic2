@@ -50,6 +50,8 @@ in pkgs.mkShell {
     #export PYTHONPATH=$PYTHONPATH:/home/eisbaw/.local/lib/python3.9/site-packages
     #python3 saleae_example.py
 
-    poetry run python3 saleae_example.py
+
+
+    #poetry run python3 saleae_example.py
   '';
 }

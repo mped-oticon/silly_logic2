@@ -9,30 +9,28 @@ from datetime import datetime
 from saleae import automation
 
 
+parser = argparse.ArgumentParser(description='Interact with Saleae: {Spawn, Kill} Logic GUI (gRPC server), {Start, Stop} capture to RAM, Export capture')
+parser.add_argument("-v", "--verbose", help="Output verbosity", action="store_true")
+args = parser.parse_args()
 
-
-args = p.parse_args()
 if args.verbose:
     log.basicConfig(format="%(levelname)s: %(message)s", level=log.DEBUG)
     log.info("Verbose output.")
 else:
     log.basicConfig(format="%(levelname)s: %(message)s")
 
-log.info("This should be verbose.")
-log.warning("This is a warning.")
-log.error("This is an error.")
 
 cmd_logic_gui = "./logic.sh"
 
-print("Starting %s" % cmd_logic_gui)
+
+log.debug("Starting %s" % cmd_logic_gui)
 proc_logic_gui = subprocess.Popen(cmd_logic_gui)
-print("Started %s" % cmd_logic_gui)
+log.debug("Started %s" % cmd_logic_gui)
 
-time.sleep(10)
-print("started2")
+log.info("Waiting for gRPC server (Logic GUI) to start up")
+time.sleep(10)  # TODO: Poll if the port
 
-
-# Connect to the running Logic 2 Application on port
+log.debug("Remember connection to Logic 2 Application on port")
 manager = automation.Manager(port=10430)
 
 # Configure the capturing device to record on digital channels 0, 1, 2, and 3,
@@ -96,7 +94,7 @@ try:
     print("fffffffffffffffffff")
 
 except Exception as e:
-    print("Got exception %r. Is the Logic GUI running and listening?" % type(e))
+    log.error("Got exception %r. Is the Logic GUI running and listening?" % type(e))
     manager.close() # We must close the manager thread, or else python will block waiting for it to end
     proc_logic_gui.kill()
     raise e  # Be noisy and propagate the exception
