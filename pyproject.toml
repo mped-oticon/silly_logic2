@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "hmm"
+version = "0.1.0"
+description = ""
+authors = ["Mark Ruvald Pedersen <mped@demant.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+logic2-automation = { file = "logic2_automation-0.0.1-py3-none-any.whl" }
+grpcio = "1.46.3"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
