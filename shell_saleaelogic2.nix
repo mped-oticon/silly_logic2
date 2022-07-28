@@ -40,16 +40,16 @@ in pkgs.mkShell {
   extracted_sl2 = (builtins.toString wdh_sl2) + "/wdh_extracted_appimage";
 
   shellHook = ''
-    # Prefix by the extracted Logic binary
+    # Prefix: Prefer the extracted Logic binary
     export PATH="$extracted_sl2:$PATH"
 
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/nix/store/4cjslj7f2h3b8xqgyj8l5grqwpf4mhji-gcc-9.3.0-lib/lib
+    # Postfix: Prefer system libraries, but let extracted libraries be a backup
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$extracted_sl2/resources/linux/optional/libstdc++
 
     # Install the python automation package
     #pip install --user logic2_automation-0.0.1-py3-none-any.whl
     #export PYTHONPATH=$PYTHONPATH:/home/eisbaw/.local/lib/python3.9/site-packages
     #python3 saleae_example.py
-
 
 
     #poetry run python3 saleae_example.py
