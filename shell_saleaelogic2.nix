@@ -16,7 +16,7 @@ let
   wdh_jwmrun = import ./pkg_jwmrun.nix;
 in pkgs.mkShell {
   buildInputs = [
-    #allthepoetrystuff
+    #allthepoetrystuff    # WIP: poetry2nix has an override on grpcio which is broken
 
     # Oticon special interest packages
     wdh_sl2
@@ -45,13 +45,5 @@ in pkgs.mkShell {
 
     # Postfix: Prefer system libraries, but let extracted libraries be a backup
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$extracted_sl2/resources/linux/optional/libstdc++
-
-    # Install the python automation package
-    #pip install --user logic2_automation-0.0.1-py3-none-any.whl
-    #export PYTHONPATH=$PYTHONPATH:/home/eisbaw/.local/lib/python3.9/site-packages
-    #python3 saleae_example.py
-
-
-    #poetry run python3 saleae_example.py
   '';
 }
