@@ -1,4 +1,17 @@
 #!/usr/bin/env bash
+# Start gRPC server which is embedded into the Logic GUI
+
+function reset_usb {
+    local vendor_id="$1"
+    lsusb -d "${vendor_id}:" | grep -Eo "${vendor_id}:[^ ]+" | while read vidpid; do usb-reset "$vidpid"; done
+}
+
+# Ensure known-good initial state of physical Logic Device(s).
+# If Logic GUI is violently kill -9'ed during capture, subsequent
+# captures will crash and one must reset the usb device itself.
+# We can't detect if that would be the case beforehand, so we will rather always reset.
+saleae_vendor_id="21a9"
+reset_usb "$saleae_vendor_id"
 
 # To enable automation, both export and config setting are required
 export ENABLE_AUTOMATION=1

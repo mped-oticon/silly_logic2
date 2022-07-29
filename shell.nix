@@ -29,7 +29,13 @@ in pkgs.mkShell {
     pkgs.stdenv.cc.cc.lib
     pkgs.poetry
 
-    pkgs.bubblewrap
+    # For simulation: Masking out USB devices
+    pkgs.bubblewrap  
+
+    # If Logic GUI is violently kill -9'ed during capture, subsequent
+    # captures will crash and one must reset the usb device itself
+    pkgs.usb-reset
+    pkgs.usbutils  # contains lsusb
 
     # "Headless"/VNC dependencies
     pkgs.jwm
