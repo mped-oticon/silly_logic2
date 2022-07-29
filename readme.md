@@ -20,7 +20,7 @@ This should make Saleae much more edible for use in regression setups.
 
 
 
-## Usage example: Show Saleae Logic GUI on current $DISPLAY
+## Usage example 1: Show Logic GUI on current $DISPLAY
 ```
 $ nix-shell --pure shell_saleaelogic2.nix --run "./logic.sh"
 ```
@@ -32,19 +32,36 @@ Wouldn't it be nice if these issues were solved in a race-free, clean, debuggabl
 
 
 
-## Usage example: Show on "Headless" VNC server
+## Usage example 2: Show Logic GUI on "Headless" VNC server
 ```
 $ nix-shell --pure shell_saleaelogic2.nix --run "expose-as-vnc-server jwm-run ./logic.sh"
 ```
 This is good for regression:
- * $DISPLAY is automatically found
+ * Uses unallocated $DISPLAY
  * Everything is cleaned up at exit
  * Gives developers a chance to visually inspect waveforms
 
 
 
-## Usage example: Fully scripted via python
+## Usage example 3: Fully scripted via python
 ```
 $ nix-shell shell_saleaelogic2.nix --run "poetry run python3 auto_saleae.py --capture --verbose"
 ```
+This python code has all its dependencies taken care of through poetry.
+It starts `./logic.sh` by default (see `-s` option), and {starts, stops, exports} a capture, then kills Logic GUI.
+Like example 1, Logic GUI will appear on current $DISPLAY.
+Several options are explained by `--help`.
+If physical Saleae Logic device is connected, virtual devices can't be selected via `-d` option -- see example 4.
+
+
+
+## Usage example 4: Fully scripted via python against simulated Logic device
+```
+nix-shell --pure shell_saleaelogic2.nix --run "poetry run python3 auto_saleae.py --capture --verbose -d F4241"
+```
+
+F4241 is the serial number for a virtual Logic Pro 16 device.
+These virtual devices are only selectable when no physical devices are found by Logic.
+Testing of our python code without interfering with physically attached devices, requires masking out USB devices.
+Therefore selecting a virtual device will let `./logic.sh` execute under `./mask_out_usb_devices.sh`.
 

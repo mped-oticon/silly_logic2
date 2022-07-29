@@ -34,6 +34,9 @@ parser.add_argument("--list_devices", default=False, action="store_true",
 parser.add_argument("-d", "--device_serial_number", type=str, default="D684A188723FA297", 
     help="Saleae Logic hardware device's serial number")
 
+parser.add_argument("--virtual", default=False, action="store_true",
+    help="Hide physical USB Logic devices from Logic GUI, permitting use of virtual Logic devices")
+
 
 args = parser.parse_args()
 
@@ -43,6 +46,17 @@ if args.verbose:
 else:
     log.basicConfig(format="%(levelname)s: %(message)s")
 
+
+
+virtual_logic_16_pro  = 'F4241'
+virtual_logic_16      = 'F4242'  # NOTE: Not available yet!
+virtual_logic_8       = 'F4243'
+virtual_logic_8_pro   = 'F4244'
+
+virtual_device_ids = [ virtual_logic_16_pro,
+                       virtual_logic_16,
+                       virtual_logic_8,
+                       virtual_logic_8_pro ]
 
 
 def get_physical_saleae_devices(manager) -> list[str]:    
@@ -60,11 +74,6 @@ def get_physical_saleae_devices(manager) -> list[str]:
     e_str = ""
     bad_serial = "purposefully not existant"
     default_cfg = automation.LogicDeviceConfiguration()
-
-    virtual_device_ids = ['F4241', 
-                          'F4242',   # F4242 not actually reported
-                          'F4243', 
-                          'F4244']
 
     # Official manager.get_devices() is broken as of version 0.0.1 of the Automation API
     # As a workaround, we start a capture with wrong serial number; this will cause an exception to be thrown.
@@ -88,16 +97,16 @@ def get_physical_saleae_devices(manager) -> list[str]:
 
 
 
+if args.device_serial_number in virtual_device_ids:
+    args.virtual = True
 
-
-
-
-
+if args.virtual:
+    args.server_cmd = "./mask_out_usb_devices.sh " + args.server_cmd
 
 proc_logic_gui = None
 if args.server_open:
     log.debug("Starting %s" % args.server_cmd)
-    proc_logic_gui = subprocess.Popen(args.server_cmd)
+    proc_logic_gui = subprocess.Popen(args.server_cmd, shell=True)
     log.debug("Started %s" % args.server_cmd)
 
     log.info("Waiting for gRPC server (Logic GUI) to start up")
