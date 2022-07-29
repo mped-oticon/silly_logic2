@@ -29,6 +29,7 @@ in pkgs.mkShell {
     pkgs.stdenv.cc.cc.lib
     pkgs.poetry
 
+    pkgs.bubblewrap
 
     # "Headless"/VNC dependencies
     pkgs.jwm
