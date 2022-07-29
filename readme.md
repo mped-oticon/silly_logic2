@@ -22,7 +22,7 @@ This should make Saleae much more edible for use in regression setups.
 
 ## Usage example 1: Show Logic GUI on current $DISPLAY
 ```
-$ nix-shell --pure shell_saleaelogic2.nix --run "./logic.sh"
+$ nix-shell --pure --run "./logic.sh"
 ```
 This is fine for personal development; less so for regression.
 Regression machines should be minimalistic, so there is no fancy Desktop Environment.
@@ -34,18 +34,24 @@ Wouldn't it be nice if these issues were solved in a race-free, clean, debuggabl
 
 ## Usage example 2: Show Logic GUI on "Headless" VNC server
 ```
-$ nix-shell --pure shell_saleaelogic2.nix --run "expose-as-vnc-server jwm-run ./logic.sh"
+$ nix-shell --pure --run "expose-as-vnc-server jwm-run ./logic.sh"
 ```
 This is good for regression:
- * Uses unallocated $DISPLAY
- * Everything is cleaned up at exit
+ * Uses new unallocated $DISPLAY
+ * Cleans up at exit
  * Gives developers a chance to visually inspect waveforms
+
+![Screenshot of VNC client](https://i.imgur.com/0iMRPAK.png)
+
+This depends on
+[expose-as-vnc-server](https://github.com/mped-oticon/expose-as-vnc-server) and
+[jwm-run](https://github.com/mped-oticon/jwm-run), which already are included in `shell.nix`.
 
 
 
 ## Usage example 3: Fully scripted via python
 ```
-$ nix-shell shell_saleaelogic2.nix --run "poetry run python3 auto_saleae.py --capture --verbose"
+$ nix-shell --pure --run "poetry run python3 auto_saleae.py --capture --verbose"
 ```
 This python code has all its dependencies taken care of through poetry.
 It starts `./logic.sh` by default (see `-s` option), and {starts, stops, exports} a capture, then kills Logic GUI.
@@ -57,7 +63,7 @@ If physical Saleae Logic device is connected, virtual devices can't be selected 
 
 ## Usage example 4: Fully scripted via python against simulated Logic device
 ```
-nix-shell --pure shell_saleaelogic2.nix --run "poetry run python3 auto_saleae.py --capture --verbose -d F4241"
+nix-shell --pure --run "poetry run python3 auto_saleae.py --capture --verbose -d F4241"
 ```
 
 F4241 is the serial number for a virtual Logic Pro 16 device.

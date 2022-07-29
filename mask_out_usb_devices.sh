@@ -30,7 +30,7 @@
 #   0
 #
 # Usage example 5 -- Gain access to virtual Logic devices, or prevent interfering with physical device
-#   $ nix-shell shell_saleaelogic2.nix --run "./mask_out_usb_devices.sh ./logic.sh"
+#   $ nix-shell --run "./mask_out_usb_devices.sh ./logic.sh"
 
 
 # Determine if bubblewrap is already available
