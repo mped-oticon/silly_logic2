@@ -1,8 +1,6 @@
 import os
 import os.path
-import subprocess
 import time
-import argparse
 import logging as log
 from datetime import datetime
 
@@ -10,26 +8,6 @@ from saleae import automation
 
 
 
-
-args = p.parse_args()
-if args.verbose:
-    log.basicConfig(format="%(levelname)s: %(message)s", level=log.DEBUG)
-    log.info("Verbose output.")
-else:
-    log.basicConfig(format="%(levelname)s: %(message)s")
-
-log.info("This should be verbose.")
-log.warning("This is a warning.")
-log.error("This is an error.")
-
-cmd_logic_gui = "./logic.sh"
-
-print("Starting %s" % cmd_logic_gui)
-proc_logic_gui = subprocess.Popen(cmd_logic_gui)
-print("Started %s" % cmd_logic_gui)
-
-time.sleep(10)
-print("started2")
 
 
 # Connect to the running Logic 2 Application on port
@@ -55,11 +33,11 @@ capture_configuration = automation.CaptureConfiguration(
 
 
 try:
-    with manager.start_capture(device_serial_number='D684A188723FA297',
+    with manager.start_capture(device_serial_number='F4241',
                                device_configuration=device_configuration,
                                capture_configuration=capture_configuration) as capture:
 
-        print("asdasdasd")
+        print("Capturing...")
 
         # Wait until the capture has finished
         # This will take about 5 seconds because we are using a timed capture mode
@@ -93,14 +71,12 @@ try:
         capture_filepath = os.path.join(output_dir, 'example_capture.sal')
         capture.save_capture(filepath=capture_filepath)
 
-    print("fffffffffffffffffff")
+        print("Capture exported")
 
 except Exception as e:
     print("Got exception %r. Is the Logic GUI running and listening?" % type(e))
     manager.close() # We must close the manager thread, or else python will block waiting for it to end
-    proc_logic_gui.kill()
     raise e  # Be noisy and propagate the exception
 
 
 manager.close()  # No exception occured, but we must still close the manager thread
-proc_logic_gui.kill()
