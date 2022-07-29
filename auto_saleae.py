@@ -17,8 +17,12 @@ from saleae import automation
 parser = argparse.ArgumentParser(
     description='Interact with Saleae: {Spawn, Kill} Logic GUI (gRPC server), {Start, Stop} capture to RAM, Export capture',
     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+
 parser.add_argument("--verbose", default=False, action=argparse.BooleanOptionalAction,
     help="Print debug messages")
+
+parser.add_argument("-o", "--outdir", type=str, default=os.getcwd(), 
+    help="Directory to place captured output file(s)")
 
 parser.add_argument("-s", "--server_cmd", type=str, default="./logic.sh", 
     help="Command to start the gRPC server (Logic GUI)")
@@ -181,7 +185,7 @@ if args.capture:
                                    capture_configuration=capture_configuration) as capture:
 
             # Store output in a timestamped directory
-            output_dir = os.path.join(os.getcwd(), f'output-{datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}')
+            output_dir = os.path.join(args.outdir, f'output-{datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}')
             os.makedirs(output_dir)
 
             # Wait until the capture has finished
