@@ -51,7 +51,7 @@ This depends on
 
 ## Usage example 3: Fully scripted via python
 ```
-$ nix-shell --pure --run "poetry run python3 auto_saleae.py --capture --verbose"
+$ ./auto_saleae.py --capture --verbose
 ```
 This python code has all its dependencies taken care of through poetry.
 It starts `./logic.sh` by default (see `-s` option), and {starts, stops, exports} a capture, then kills Logic GUI.
@@ -63,7 +63,7 @@ If physical Saleae Logic device is connected, virtual devices can't be selected 
 
 ## Usage example 4: Fully scripted via python against simulated Logic device
 ```
-nix-shell --pure --run "poetry run python3 auto_saleae.py --capture --verbose -d F4241"
+$ ./auto_saleae.py --capture --verbose -d F4241
 ```
 
 F4241 is the serial number for a virtual Logic Pro 16 device.

@@ -1,3 +1,6 @@
+#! /usr/bin/env nix-shell
+#! nix-shell --pure -i "poetry run python"
+
 import os
 import os.path
 import sys
