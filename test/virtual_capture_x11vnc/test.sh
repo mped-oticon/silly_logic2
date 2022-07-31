@@ -12,7 +12,8 @@ function folder_bigger_than
     local folder="$1"
     local bytes="$2"
     
-    du  --total --summarize --bytes "$folder" \
+    test -e "$folder" && \
+    du --total -s --bytes "$folder" \
     | awk -v thres=$bytes '
         {n=$1}
         END {
