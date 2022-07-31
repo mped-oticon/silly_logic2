@@ -71,3 +71,8 @@ These virtual devices are only selectable when no physical devices are found by 
 Testing of our python code without interfering with physically attached devices, requires masking out USB devices.
 Therefore selecting a virtual device will let `./logic.sh` execute under `./mask_out_usb_devices.sh`.
 
+
+
+## Errata
+
+* Masking out USB devices does not work under docker. This is an integration issue between bubblewrap and dockers usage of cgroups. Workaround is to use `--no-mask_usb` option, so bubblewrap is not invoked.
