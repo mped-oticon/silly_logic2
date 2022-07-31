@@ -1,3 +1,5 @@
+[![container](https://github.com/mped-oticon/silly_logic2/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/mped-oticon/silly_logic2/actions/workflows/ci.yml)
+
 # Silly Logic 2
 
 Saleae Logic devices are very capable, very expensive.
