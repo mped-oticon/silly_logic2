@@ -30,7 +30,7 @@ cd $ROOT_DIR
 export DISPLAY=:SOMETHING_INTENTIONALLY_WRONG
 
 # Perform virtual capture
-auto_saleae.py --server_cmd 'expose-as-vnc-server jwm-run ./logic.sh' --capture --verbose -d F4241 --outdir "${THIS_SCRIPT_DIR}/output"
+auto_saleae.py --server_cmd 'expose-as-vnc-server jwm-run ./logic.sh' --capture --verbose -d F4241 --outdir "${THIS_SCRIPT_DIR}/output" ${GITHUB_OPTS-}
 
 # Check capture contains more than some small csv headlines
 folder_bigger_than "${THIS_SCRIPT_DIR}/output" 10000

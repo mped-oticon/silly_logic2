@@ -41,7 +41,7 @@ parser.add_argument("--list_devices", default=False, action="store_true",
 parser.add_argument("-d", "--device_serial_number", type=str, default="D684A188723FA297", 
     help="Saleae Logic hardware device's serial number")
 
-parser.add_argument("--virtual", default=False, action="store_true",
+parser.add_argument("--mask_usb", default=None, action=argparse.BooleanOptionalAction,
     help="Hide physical USB Logic devices from Logic GUI, permitting use of virtual Logic devices")
 
 
@@ -104,10 +104,10 @@ def get_physical_saleae_devices(manager) -> list[str]:
 
 
 
-if args.device_serial_number in virtual_device_ids:
-    args.virtual = True
+if args.mask_usb == None and args.device_serial_number in virtual_device_ids:
+    args.mask_usb = True
 
-if args.virtual:
+if args.mask_usb:
     args.server_cmd = "./mask_out_usb_devices.sh " + args.server_cmd
 
 proc_logic_gui = None
