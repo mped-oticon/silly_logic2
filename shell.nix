@@ -52,5 +52,7 @@ in pkgs.mkShell {
 
     # Postfix: Prefer system libraries, but let extracted libraries be a backup
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$extracted_sl2/resources/linux/optional/libstdc++
+
+    poetry install --no-interaction --quiet
   '';
 }
