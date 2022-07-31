@@ -1,0 +1,52 @@
+name: container
+on: push
+
+jobs:
+  nix-in-docker:
+    runs-on: ubuntu-latest
+    container:
+      image: nixos/nix:latest
+      options: --privileged
+    steps:
+      - name: Explore the docker environment
+        run: |
+          uname -a
+          nix-shell --version
+          env
+          ls /
+          df -h
+      - name: Install git inside docker
+        run: |
+          nix-env -iA nixpkgs.git
+          nix-env -iA nixpkgs.coreutils
+          nix-env -iA nixpkgs.gawk
+      - name: Checkout our repo
+        run: |
+          chown -R $USER:$USER .   # hack for GitHub
+          git init .
+          git remote add origin https://github.com/${GITHUB_REPOSITORY}.git
+          git fetch origin $GITHUB_SHA
+          git reset --hard FETCH_HEAD
+      - name: Sanity check nix inside docker
+        run: |
+          set -x
+          ls
+          ls /*w*
+          echo $GITHUB_WORKSPACE
+          ls -al $GITHUB_WORKSPACE
+      - name: Size of Nix store before
+        run: du -s --total -m /nix/store
+      - name: "Nix noise: Fetch and install dependencies into /nix/store"
+        run: nix-shell --run "true"
+      - name: Size of Nix store after
+        run: du -s --total -m /nix/store
+      - name: Sanity check of our shell.nix environment
+        run: test/environment_sanity/test.sh
+      - name: Check if we can find project root from a test case
+        run: test/can_find_root/test.sh
+      #- name: Test virtual capture, but expecting DISPLAY - so this should fail in regression
+      #  run: test/virtual_capture/test.sh
+      - name: Back by VNC server
+        run: test/virtual_capture_x11vnc/test.sh
+      - name: Back by VNC server running a window manager
+        run: test/virtual_capture_x11vnc_jwm/test.sh
