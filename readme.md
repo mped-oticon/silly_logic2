@@ -49,6 +49,15 @@ This depends on
 [expose-as-vnc-server](https://github.com/mped-oticon/expose-as-vnc-server) and
 [jwm-run](https://github.com/mped-oticon/jwm-run), which already are included in `shell.nix`.
 
+Password and resolution can be changed:
+```
+nix-shell --pure --run "X11VNC_PASSWD=hello expose-as-vnc-server jwm-run ./logic.sh"
+```
+```
+nix-shell --pure --run "X11VNC_PASSWD=hello XVFB_SERVER_ARGS='-screen 0 1920x1080x24' expose-as-vnc-server jwm-run ./logic.sh"
+```
+
+NOTE: jwm-run is optional, but recommended as Logic window might not be maximized naturally.
 
 
 ## Usage example 3: Fully scripted via python
