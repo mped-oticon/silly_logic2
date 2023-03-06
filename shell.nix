@@ -38,6 +38,7 @@ in pkgs.mkShell {
     pkgs.usbutils  # contains lsusb
 
     # "Headless"/VNC dependencies
+    pkgs.procps  # has pkill
     pkgs.jwm
     pkgs.xvfb-run
     pkgs.x11vnc

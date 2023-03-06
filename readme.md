@@ -83,7 +83,14 @@ Testing of our python code without interfering with physically attached devices,
 Therefore selecting a virtual device will let `./logic.sh` execute under `./mask_out_usb_devices.sh`.
 
 
+## Usage example 5: Fully scripted via python against simulated Logic device and exposed over VNC
+```
+$ ./auto_saleae.py --capture --verbose -d F4241 --server_cmd "expose-as-vnc-server jwm-run ./logic.sh"
+```
+
+
 
 ## Errata
 
+* For unknown reasons, Electron framework insists upon OpenGL acceleration when X forwarded over SSH, and then fails with `EGL_NOT_INITIALIZED`.
 * Masking out USB devices does not work under docker. This is an integration issue between bubblewrap and dockers usage of cgroups. Workaround is to use `--no-mask_usb` option, so bubblewrap is not invoked.

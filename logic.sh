@@ -22,6 +22,9 @@ echo "NOTE: Overwriting your config.json file!"
 cp $HOME/.config/Logic/config.json $HOME/.config/Logic/config.json.backup
 cp config.json $HOME/.config/Logic/config.json
 
+pkill Logic
+pkill saleae-logic-2
+
 # Options. Mostly for Chromium which runs Electron.
 # Logic does not accept options by itself
 opts="--disable-gpu"
