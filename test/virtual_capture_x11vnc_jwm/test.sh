@@ -11,8 +11,9 @@ function folder_bigger_than
 {
     local folder="$1"
     local bytes="$2"
-    
-    du  --total --summarize --bytes "$folder" \
+
+    test -e "$folder" && \
+    du --total --summarize --bytes "$folder" \
     | awk -v thres=$bytes '
         {n=$1}
         END {
@@ -30,7 +31,7 @@ cd $ROOT_DIR
 export DISPLAY=:SOMETHING_INTENTIONALLY_WRONG
 
 # Perform virtual capture
-auto_saleae.py --server_cmd 'expose-as-vnc-server jwm-run ./logic.sh' --capture --verbose -d F4241 --outdir "${THIS_SCRIPT_DIR}/output" ${GITHUB_OPTS-}
+auto_saleae.py --server_cmd './logic_vnc.sh' --capture --verbose -d F4241 --outdir "${THIS_SCRIPT_DIR}/output" ${GITHUB_OPTS-}
 
 # Check capture contains more than some small csv headlines
 folder_bigger_than "${THIS_SCRIPT_DIR}/output" 10000

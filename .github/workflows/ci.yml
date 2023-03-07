@@ -54,10 +54,6 @@ jobs:
       - name: Check if we can find project root from a test case
         run: test/can_find_root/test.sh
 
-      - name: Back by VNC server
-        # Bubblewrap has issues under docker, even --privileged. Avoid bwrap by not masking USB
-        run: GITHUB_OPTS="--no-mask_usb" test/virtual_capture_x11vnc/test.sh
-
       - name: Back by VNC server running a window manager
         # Bubblewrap has issues under docker, even --privileged. Avoid bwrap by not masking USB
         run: GITHUB_OPTS="--no-mask_usb" test/virtual_capture_x11vnc_jwm/test.sh
