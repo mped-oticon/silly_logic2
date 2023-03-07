@@ -130,6 +130,12 @@ def clean_up(manager):
         if proc_logic_gui:
             log.debug("Killing gRPC server")
             proc_logic_gui.kill()
+            # The above .kill() will fail to kill Logic GUI gRPC if it is wrapped (in xvfb-run, vnc or jwm-run)
+            # so we must explicitly kill lingering Logics.
+            # If we don't kill lingering Logic processes, VNC may also linger.
+            # Lingering Logic or VNC will prevent other users from running.
+            # expose-as-vnc-server will kill the x11vnc once the Logic payload exits - so we don't need to kill x11vnc explicitly.
+            subprocess.Popen(["pkill", "Logic"], shell=False)
         else:
             log.error("Can't kill what was never started")
 

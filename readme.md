@@ -36,7 +36,7 @@ Wouldn't it be nice if these issues were solved in a race-free, clean, debuggabl
 
 ## Usage example 2: Show Logic GUI on "Headless" VNC server
 ```
-$ nix-shell --pure --run "expose-as-vnc-server jwm-run ./logic.sh"
+$ nix-shell --pure --run "./logic_vnc.sh"
 ```
 This is good for regression:
  * Uses new unallocated $DISPLAY
@@ -85,7 +85,7 @@ Therefore selecting a virtual device will let `./logic.sh` execute under `./mask
 
 ## Usage example 5: Fully scripted via python against simulated Logic device and exposed over VNC
 ```
-$ ./auto_saleae.py --capture --verbose -d F4241 --server_cmd "expose-as-vnc-server jwm-run ./logic.sh"
+$ ./auto_saleae.py --capture --verbose -d F4241 --server_cmd "./logic_vnc.sh"
 ```
 
 
